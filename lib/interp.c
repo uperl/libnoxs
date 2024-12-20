@@ -121,6 +121,14 @@ noxs_interp_call_sub_0(noxs_interp *self, const char *subname)
 }
 
 void
+noxs_interp_eval(noxs_interp *self, const char *code, int croak)
+{
+    if(self->is_valid) {
+        noxs_xs_eval_pv(self->perl, code, croak);
+    }
+}
+
+void
 noxs_interp_run(noxs_interp *self)
 {
     if(self->is_valid && !self->is_embeded) {

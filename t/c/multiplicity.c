@@ -10,8 +10,6 @@ main(int argc, char **argv, char **env)
     int perl_argc = 2;
     char *perl_argv[2] = { argv[0], "t/c/multiplicity.pl" };
 
-    plan(6);
-
     interp1 = noxs_interp_new(perl_argc, perl_argv);
     ok(interp1 != NULL, "created first interp");
 
@@ -39,6 +37,8 @@ main(int argc, char **argv, char **env)
     }
 
     noxs_interp_free(interp1);
+
+    done_testing();
 
     exit(EXIT_SUCCESS);
 }

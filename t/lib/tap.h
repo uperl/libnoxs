@@ -7,6 +7,7 @@
 #include <stdarg.h>
 
 void plan(unsigned int total);
+void done_testing();
 int ok4(int pass, const char *name, const char *file, unsigned int line);
 int is5(const char *got, const char *expected, const char *name, const char *file, unsigned int line);
 void diag(const char *format, ...);

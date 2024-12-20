@@ -49,7 +49,7 @@ subtest 'another interp' => sub {
 
         $ffi->function( interp_run => ['opaque'] => 'void' )->call($interp);
         $ffi->function( interp_call_sub_0 => ['opaque', 'string'] => 'void' )->call($interp, "callback");
-        #$ffi->function( interp_free => ['opaque'] => 'void' )->call($interp);
+        $ffi->function( interp_free => ['opaque'] => 'void' )->call($interp);
 
     }
 

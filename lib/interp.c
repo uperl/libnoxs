@@ -61,10 +61,11 @@ noxs_interp_new(int argc, char **argv)
 
     self->is_embeded = 0;
     self->argc = argc;
-    self->argv = calloc(sizeof(char*), self->argc);
-    for(int i=0; i<argc; i++) {
+    self->argv = calloc(sizeof(char*), self->argc+1);
+    for(int i=0; i<self->argc; i++) {
         self->argv[i] = strdup(argv[i]);
     }
+    self->argv[self->argc] = NULL;
     self->next = top;
     top = self;
 
@@ -171,7 +172,10 @@ noxs_interp_free(noxs_interp *self)
         return;
     }
     if(self->perl != NULL) {
-        noxs_interp_destruct(self);
+        if(self->is_valid) {
+            perl_destruct(self->perl);
+            self->is_valid = 0;
+        }
         perl_free(self->perl);
         self->perl = NULL;
     }
@@ -182,6 +186,16 @@ noxs_interp_free(noxs_interp *self)
         free(self->argv);
         self->argv = NULL;
     }
+}
+
+int
+noxs_config_multiplicity()
+{
+#ifdef MULTIPLICITY
+    return 1;
+#else
+    return 0;
+#endif
 }
 
 EXTERN_C void boot_DynaLoader (pTHX_ CV* cv);

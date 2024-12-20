@@ -16,6 +16,9 @@ int          noxs_interp_is_embeded(noxs_interp *self);
 void         noxs_interp_destruct(noxs_interp *self);
 void         noxs_interp_free(noxs_interp *self);
 
+int noxs_config_multiplicity();
+
+
 #ifdef __cplusplus
 }
 #endif

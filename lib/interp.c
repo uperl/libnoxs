@@ -86,6 +86,8 @@ noxs_interp_new(int argc, char **argv)
 
     PL_exit_flags |= PERL_EXIT_DESTRUCT_END;
 
+    perl_parse(self->perl, xs_init, self->argc, self->argv, (char **)NULL);
+
     self->is_valid = 1;
 
     if(old != NULL)
@@ -102,18 +104,11 @@ noxs_interp_new_from_perl(void *perl)
     self->is_embeded = 1;
     self->argc = 0;
     self->argv = NULL;
-    self->perl = perl != NULL ?(PerlInterpreter*)perl : PERL_GET_CONTEXT;
+    self->perl = perl != NULL ? (PerlInterpreter*)perl : PERL_GET_CONTEXT;
     self->is_valid = 1;
+    self->next = NULL;
 
     return self;
-}
-
-void
-noxs_interp_parse(noxs_interp *self)
-{
-    if(self->is_valid) {
-        perl_parse(self->perl, xs_init, self->argc, self->argv, (char **)NULL);
-    }
 }
 
 void
@@ -178,7 +173,6 @@ noxs_interp_free(noxs_interp *self)
     if(self->perl != NULL) {
         noxs_interp_destruct(self);
         perl_free(self->perl);
-        PERL_SYS_TERM();
         self->perl = NULL;
     }
     if(self->argv != NULL) {

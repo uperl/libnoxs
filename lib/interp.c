@@ -100,7 +100,7 @@ noxs_interp_new_from_perl(void *perl)
     self->perl = perl != NULL ?(PerlInterpreter*)perl : PERL_GET_CONTEXT;
     self->is_valid = 1;
 
-    return 0;
+    return self;
 }
 
 void

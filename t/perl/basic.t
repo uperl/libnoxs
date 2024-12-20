@@ -2,8 +2,6 @@ use Test2::V0;
 use experimental qw( signatures );
 use FFI::Platypus 2.00;
 
-skip_all 'borked';
-
 my $lib = './lib/noxs.so';
 my $ffi = FFI::Platypus->new( api => 2, lib => $lib );
 $ffi->mangler(sub ($sym) { "noxs_$sym" });

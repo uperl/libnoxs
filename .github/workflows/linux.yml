@@ -55,7 +55,7 @@ jobs:
         run: cip exec make
 
       - name: Install CPAN Modules
-        run: cip exec cpanm -n --installdeps .
+        run: cip install
 
       - name: Test
         run: cip exec prove -vmr

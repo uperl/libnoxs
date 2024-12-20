@@ -2,20 +2,12 @@
 #include <perl.h>
 #include <noxs.h>
 #include <noxs_xs.h>
+#include <noxs_impl.h>
 #include <stdlib.h>
 #include <string.h>
 
 // see environ(7)
 extern char **environ;
-
-struct noxs_interp {
-    PerlInterpreter *perl;
-    int is_valid;
-    int is_embeded;
-    int argc;
-    char **argv;
-    noxs_interp *next;
-};
 
 typedef enum {
     INIT_REQUIRED,

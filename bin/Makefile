@@ -2,12 +2,15 @@ PERL=perl
 CC=gcc
 LD=gcc
 PERL_CFLAGS=$(shell perl -MExtUtils::Embed -e ccopts)
-CFLAGS=-I. -fPIC
+CFLAGS=-I../include -fPIC
 PERL_LDFLAGS=$(shell perl -MExtUtils::Embed -e ldopts)
-LDFLAGS=
+LDFLAGS=-L../lib -lnoxs
+AR=ar
+RANLIB=ranlib
 
-main: main.o interp.o
-	$(CC) -o main $(PERL_CFLAGS) $(CFLAGS) main.c interp.c $(PERL_LDFLAGS) $(LDFLAGS)
+EXEOBJ=main.o
+main: $(EXEOBJ)
+	$(CC) -o main $(EXEOBJ) $(LDFLAGS) $(PERL_LDFLAGS)
 
 %.o: %.c
 	$(CC) -c -o $@ $(PERL_CFLAGS) $(CFLAGS) $*.c

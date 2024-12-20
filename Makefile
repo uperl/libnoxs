@@ -1,12 +1,14 @@
+include config
+
 .PHONY: all clean
 
 all:
 	make -C lib
-	make -C t
+	make -C t/c
 
 clean:
 	make -C lib clean
-	make -C t clean
+	make -C t/c clean
 
 test: all
-	prove
+	$(PROVE) -r

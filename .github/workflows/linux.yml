@@ -58,4 +58,4 @@ jobs:
         run: cip exec cpanm --installdeps .
 
       - name: Test
-        run: cip exec prove -vm
+        run: cip exec prove -vmr

@@ -8,6 +8,10 @@ sub callback { $x++; };
 
 subtest 'same interp' => sub {
 
+    my $error = $ffi->function( error => [] => 'string' )->call;
+    is($error, D());
+    is($error, '');
+
     my $interp = $ffi->function( interp_new_from_perl => ['opaque'] => 'opaque' )->call(undef);
     $ffi->function( interp_call_sub_0 => ['opaque', 'string'] => 'void' )->call($interp, "callback");
 
@@ -24,8 +28,9 @@ subtest 'same interp' => sub {
 
     is $x, 3;
 
+    $ffi->function( DONE => [] => 'void' )->call;
+
 };
 
-$ffi->function( DONE => [] => 'void' )->call;
 
 done_testing;

@@ -1,5 +1,7 @@
 #include <tap.h>
 
+static int count = 1;
+
 void
 plan(unsigned int total)
 {
@@ -7,7 +9,11 @@ plan(unsigned int total)
     fflush(stdout);
 }
 
-static int count = 1;
+void
+done_testing()
+{
+    plan(count-1);
+}
 
 static
 const char *format_string(const char *format)

@@ -1,16 +1,18 @@
 include ../config
 
+all: libnoxs.a noxs.so
+
 LIBOBJ=interp.o
 libnoxs.a: $(LIBOBJ)
 	$(AR) rc libnoxs.a $(LIBOBJ)
 	$(RANLIB) libnoxs.a
 
-libnoxs.so: $(LIBOBJ)
-	$(LD) -shared -o libnoxs.so $(PERL_LDFLAGS) $(LDFLAGS)
+noxs.so: $(LIBOBJ)
+	$(LD) -shared -o noxs.so $(LIBOBJ)
 
 %.o: %.c noxs_xs.h noxs_impl.h ../include/noxs.h
 	$(CC) -c -o $@ $(PERL_CFLAGS) $(CFLAGS) $*.c
 
 .PHONY: clean
 clean:
-	rm -rf *.o libnoxs.a libnoxs.so*
+	rm -rf *.o libnoxs.a noxs.so*

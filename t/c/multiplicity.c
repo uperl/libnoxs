@@ -7,39 +7,33 @@ main(int argc, char **argv, char **env)
     int test_count;
     noxs_interp *interp1 = NULL;
 
-    plan(4);
+    int perl_argc = 2;
+    char *perl_argv[2] = { argv[0], "t/c/multiplicity.pl" };
 
-    {
-        int perl_argc = 3;
-        char *perl_argv[3] = { argv[0], "t/c/multiplicity.pl", "3" };
-        interp1 = noxs_interp_new(perl_argc, perl_argv);
-        ok(interp1 != NULL, "created first interp");
-    }
+    plan(6);
+
+    interp1 = noxs_interp_new(perl_argc, perl_argv);
+    ok(interp1 != NULL, "created first interp");
+
+    ok(noxs_interp_is_valid(interp1) == 1, ".is_valid = 1");
+    ok(noxs_interp_is_embeded(interp1) == 0, ".is_embeded = 0");
 
     if(noxs_config_multiplicity()) {
 
         noxs_interp *interp2 = NULL;
 
-        {
-            int perl_argc = 3;
-            char *perl_argv[3] = { argv[0], "t/c/multiplicity.pl", "4" };
-
-            interp2 = noxs_interp_new(perl_argc, perl_argv);
-            ok(interp2 != NULL, "created second interp");
-        }
+        interp2 = noxs_interp_new(perl_argc, perl_argv);
+        ok(interp2 != NULL, "created second interp");
 
         noxs_interp_run(interp1);
-        bump();
         noxs_interp_run(interp2);
-        bump();
 
         noxs_interp_free(interp2);
 
     } else {
 
-        ok(noxs_interp_new(0, NULL) == NULL, "second interp returns NULL");
+        ok(noxs_interp_new(perl_argc, perl_argv) == NULL, "second interp returns NULL");
         noxs_interp_run(interp1);
-        bump();
 
         is(noxs_error(), "Perl does not have multiplicity", "expected error");
     }

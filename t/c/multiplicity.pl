@@ -1,12 +1,7 @@
 use 5.020;
 use warnings;
+use FFI::Platypus 2.00;
 
-my $count = shift @ARGV;
-
-$|=1;
-
-if(defined $count && $count =~ /^[34]\z/) {
-    say "ok $count";
-} else {
-    say "not ok 1";
-}
+FFI::Platypus->new(api => 2, lib => [undef])
+  ->function( ok4 => ['int', 'string', 'string', 'int'] => 'int' )
+  ->call(1, "from inside perl", __FILE__, __LINE__);

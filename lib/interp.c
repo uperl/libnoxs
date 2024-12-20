@@ -74,6 +74,8 @@ noxs_interp_new(int argc, char **argv)
         atexit(noxs_DONE);
     }
 
+    PerlInterpreter *old = PERL_GET_CONTEXT;
+
     /*
      * NOTE: PL_exit_flags needs the perl interpreter
      * to be called my_perl, so we create a duplicate
@@ -85,6 +87,9 @@ noxs_interp_new(int argc, char **argv)
     PL_exit_flags |= PERL_EXIT_DESTRUCT_END;
 
     self->is_valid = 1;
+
+    if(old != NULL)
+        PERL_SET_CONTEXT(old);
 
     return self;
 }

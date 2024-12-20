@@ -12,3 +12,6 @@ clean:
 
 test: all
 	$(PROVE) -r
+
+vt: all
+	$(PROVE) -rvm

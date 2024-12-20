@@ -8,7 +8,7 @@ libnoxs.a: $(LIBOBJ)
 libnoxs.so: $(LIBOBJ)
 	$(LD) -shared -o libnoxs.so $(PERL_LDFLAGS) $(LDFLAGS)
 
-%.o: %.c
+%.o: %.c noxs_xs.h noxs_impl.h ../include/noxs.h
 	$(CC) -c -o $@ $(PERL_CFLAGS) $(CFLAGS) $*.c
 
 .PHONY: clean

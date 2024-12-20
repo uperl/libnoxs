@@ -23,7 +23,9 @@ main(int argc, char **argv, char **env)
         interp2 = noxs_interp_new(perl_argc, perl_argv);
         ok(interp2 != NULL, "created second interp");
 
+        noxs_interp_set_context(interp1);
         noxs_interp_run(interp1);
+        noxs_interp_set_context(interp2);
         noxs_interp_run(interp2);
 
         noxs_interp_free(interp2);
@@ -36,6 +38,7 @@ main(int argc, char **argv, char **env)
         is(noxs_error(), "Perl does not have multiplicity", "expected error");
     }
 
+    noxs_interp_set_context(interp1);
     noxs_interp_free(interp1);
 
     done_testing();

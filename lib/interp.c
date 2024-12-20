@@ -119,6 +119,14 @@ noxs_interp_new_from_perl(void *perl)
 }
 
 void
+noxs_interp_set_context(noxs_interp *self)
+{
+    if(self != NULL && self->is_valid) {
+        PERL_SET_CONTEXT(self->perl);
+    }
+}
+
+void
 noxs_interp_call_sub_0(noxs_interp *self, const char *subname)
 {
     if(self->is_valid) {

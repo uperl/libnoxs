@@ -1,0 +1,9 @@
+PERL=perl
+CC=gcc
+LD=gcc
+PERL_CFLAGS=$(shell $(PERL) -MExtUtils::Embed -e ccopts)
+CFLAGS=-I../include -I. -fPIC
+PERL_LDFLAGS=$(shell $(PERL) -MExtUtils::Embed -e ldopts)
+LDFLAGS=
+AR=ar
+RANLIB=ranlib

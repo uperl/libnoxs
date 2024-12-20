@@ -6,11 +6,12 @@ int
 main(int argc, char **argv, char **env)
 {
     int perl_argc = 2;
-    char *perl_argv[2] = { argv[0], "main.pl" };
+    char *perl_argv[2] = { argv[0], "t/xs.pl" };
 
     noxs_interp *myperl = noxs_interp_new(perl_argc, perl_argv);
     noxs_interp_parse(myperl);
-    noxs_interp_call_sub_0(myperl, "foo");
+    noxs_interp_run(myperl);
     noxs_interp_free(myperl);
-    exit(0);
+
+    exit(EXIT_SUCCESS);
 }

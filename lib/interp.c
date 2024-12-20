@@ -18,6 +18,8 @@ typedef enum {
 
 status_t status = INIT_REQUIRED;
 
+static void xs_init (pTHX);
+
 noxs_interp *top = NULL;
 void noxs_DONE()
 {
@@ -105,7 +107,7 @@ void
 noxs_interp_parse(noxs_interp *self)
 {
     if(self->is_valid) {
-        perl_parse(self->perl, NULL, self->argc, self->argv, (char **)NULL);
+        perl_parse(self->perl, xs_init, self->argc, self->argv, (char **)NULL);
     }
 }
 
@@ -173,4 +175,13 @@ noxs_interp_free(noxs_interp *self)
         free(self->argv);
         self->argv = NULL;
     }
+}
+
+EXTERN_C void boot_DynaLoader (pTHX_ CV* cv);
+
+EXTERN_C void
+xs_init(pTHX)
+{
+    char *file = __FILE__;
+    newXS("DynaLoader::boot_DynaLoader", boot_DynaLoader, file);
 }

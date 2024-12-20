@@ -1,20 +1,12 @@
-PERL=perl
-CC=gcc
-LD=gcc
-PERL_CFLAGS=$(shell perl -MExtUtils::Embed -e ccopts)
-CFLAGS=-I../include -fPIC
-PERL_LDFLAGS=$(shell perl -MExtUtils::Embed -e ldopts)
+include ../config
 LDFLAGS=-L../lib -lnoxs
-AR=ar
-RANLIB=ranlib
 
-EXEOBJ=main.o
-main: $(EXEOBJ)
-	$(CC) -o main $(EXEOBJ) $(LDFLAGS) $(PERL_LDFLAGS)
+.PHONY: all
+all: basic.t xs.t
 
-%.o: %.c
-	$(CC) -c -o $@ $(PERL_CFLAGS) $(CFLAGS) $*.c
+%.t: %.c
+	$(LD) -o $@ $(PERL_CFLAGS) $(CFLAGS) $*.c $(LDFLAGS) $(PERL_LDFLAGS)
 
 .PHONY: clean
 clean:
-	rm -rf *.o main
+	rm -rf *.o *.t

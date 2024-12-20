@@ -1,12 +1,4 @@
-PERL=perl
-CC=gcc
-LD=gcc
-PERL_CFLAGS=$(shell perl -MExtUtils::Embed -e ccopts)
-CFLAGS=-I../include -I. -fPIC
-PERL_LDFLAGS=$(shell perl -MExtUtils::Embed -e ldopts)
-LDFLAGS=
-AR=ar
-RANLIB=ranlib
+include ../config
 
 LIBOBJ=interp.o
 libnoxs.a: $(LIBOBJ)

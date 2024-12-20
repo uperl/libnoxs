@@ -188,16 +188,6 @@ noxs_interp_free(noxs_interp *self)
     }
 }
 
-int
-noxs_config_multiplicity()
-{
-#ifdef MULTIPLICITY
-    return 1;
-#else
-    return 0;
-#endif
-}
-
 EXTERN_C void boot_DynaLoader (pTHX_ CV* cv);
 
 EXTERN_C void

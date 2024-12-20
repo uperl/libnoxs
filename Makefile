@@ -4,10 +4,12 @@ include config
 
 all:
 	make -C lib
+	make -C t/lib
 	make -C t/c
 
 clean:
 	make -C lib clean
+	make -C t/lib clean
 	make -C t/c clean
 
 test: all

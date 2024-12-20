@@ -15,6 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        cip:
           - tag: "5.41"
           - tag: "5.40"
           - tag: "5.40-bullseye32"

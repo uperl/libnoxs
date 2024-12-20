@@ -10,4 +10,16 @@ struct noxs_interp {
     noxs_interp *next;
 };
 
+extern int noxs_error_needs_free;
+extern char *noxs_error_string;
+
+#define noxs_error_set(s) if(noxs_error_needs_free) {     \
+                              free(noxs_error_string);    \
+                              noxs_error_string = s;      \
+                              noxs_error_needs_free = 0;  \
+                          } else {                        \
+                              noxs_error_string = s;      \
+                              noxs_error_needs_free = 0;  \
+                          }
+
 #endif

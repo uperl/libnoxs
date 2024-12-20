@@ -57,6 +57,14 @@ noxs_interp_new(int argc, char **argv)
         return NULL;
     }
 
+    PerlInterpreter *old = PERL_GET_CONTEXT;
+#ifndef MULTIPLICITY
+    if(old != NULL) {
+        noxs_error_set("Perl does not have multiplicity");
+        return NULL;
+    }
+#endif
+
     noxs_interp *self = malloc(sizeof(noxs_interp));
 
     self->is_embeded = 0;
@@ -74,8 +82,6 @@ noxs_interp_new(int argc, char **argv)
         status = TERM_REQUIRED;
         atexit(noxs_DONE);
     }
-
-    PerlInterpreter *old = PERL_GET_CONTEXT;
 
     /*
      * NOTE: PL_exit_flags needs the perl interpreter
@@ -167,6 +173,9 @@ noxs_interp_destruct(noxs_interp *self)
 void
 noxs_interp_free(noxs_interp *self)
 {
+    if(self == NULL) {
+        return;
+    }
     if(self->is_embeded) {
         free(self);
         return;

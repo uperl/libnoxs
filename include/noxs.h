@@ -18,6 +18,7 @@ void         noxs_interp_free(noxs_interp *self);
 
 int noxs_config_multiplicity();
 
+const char *noxs_error();
 
 #ifdef __cplusplus
 }

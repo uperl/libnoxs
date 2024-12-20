@@ -2,7 +2,7 @@ include ../config
 
 all: libnoxs.a noxs.so
 
-LIBOBJ=interp.o config.o
+LIBOBJ=interp.o config.o error.o
 libnoxs.a: $(LIBOBJ)
 	$(AR) rc libnoxs.a $(LIBOBJ)
 	$(RANLIB) libnoxs.a

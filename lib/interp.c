@@ -97,7 +97,7 @@ noxs_interp_new_from_perl(void *perl)
     self->is_embeded = 1;
     self->argc = 0;
     self->argv = NULL;
-    self->perl = (PerlInterpreter*)perl;
+    self->perl = perl != NULL ?(PerlInterpreter*)perl : PERL_GET_CONTEXT;
     self->is_valid = 1;
 
     return 0;
